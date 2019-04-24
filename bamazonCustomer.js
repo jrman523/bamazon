@@ -32,11 +32,11 @@ function menu() {
             name: 'num'
         }
     ]).then(function (buy){
-        connection(`SELECT * FROM products Where item_id = ${buy.id}`, function (err, data){
+        connection.query(`SELECT * FROM products Where item_id = ${parseInt(buy.id)}`, function (err, data){
             if (!err){
-                if (data.stock_quantity >= buy.num){
-                    var stockLeft = data.stock_quantity - buy.num ;
-                    update(stockLeft, buy.id);
+                if (parseInt(data.stock_quantity) >= parseInt(buy.num)){
+                    var stockLeft = parseInt(data.stock_quantity) - parseInt(buy.num) ; 
+                    update(stockLeft, parseInt(buy.id));
                 } else {
                     console.log('Insufficient quantity!');
                 }
